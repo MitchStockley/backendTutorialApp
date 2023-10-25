@@ -7,11 +7,11 @@ const cors = require("cors");
 
 const app = express()
 
-var corsOptions = {
-    origin: "https://resilient-souffle-08032f.netlify.app/" //will need to be changed for netlify deploy
-};
+// var corsOptions = {
+//     origin: "https://resilient-souffle-08032f.netlify.app/" //will need to be changed for netlify deploy
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -43,4 +43,8 @@ require("./routes/tutorial.routes")(app);
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
+});
+
+app.use('*', (req,res) => {
+    res.status(404).json({error: "not found"});
 });
